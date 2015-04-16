@@ -8,5 +8,3 @@ Aprendendo Scrum de uma forma divertida.
 **Objetivo do Trabalho**
 
   Este é um trabalho acadêmico desenvolvido pelo grupo Scrummando do curso de Engenharia de Software da Universidade Federal de Minas Gerais. O objetivo do trabalho é desenvolver um jogo para ensinar conceitos de engenharia de software e em seu desenvolvimento utilizar algum método ágil, neste caso usaremos o própio Scrum.
-
-**Dados Técnicos**
