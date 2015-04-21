@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="${request.locale_name}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="author" content="Pylons Project">
+    <link rel="shortcut icon" href="${request.static_url('scrummando:static/pyramid-16x16.png')}">
+
+    <title>Scrummando: Ensinando Scrum com Scrum</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this scaffold -->
+    <link href="${request.static_url('scrummando:static/theme.css')}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="starter-template">
+      <div class="container">
+          <div class="row">
+          <div class="col-md-4">
+                  <img class="logo img-responsive" style="max-height: 350px" src="${request.static_url('scrummando:static/scrum-master.png')}" alt="scrum-master">
+          </div>
+          <div class="col-md-8">
+          <fieldset class="content">
+              <legend>
+                <h1>
+                  <span class="smaller">Teste Login do Usuario</span>
+                </h1>
+              </legend>
+              <div class="col-md-6">
+
+                    <div>
+                        <label>Nome de Usuário:</label><br/>
+                        <input type="text" name="login_username" placeholder="Digite um nome de usuário">
+                    </div>
+                    <div>
+                        <label>Senha:</label><br/>
+                        <input type="password" name="login_password">
+                    </div>
+                  <div>
+                    <button type="submit" id="login_btn" class="btn">Entrar</button>
+                  </div>
+
+
+              </div>
+              <div class="col-md-6">
+                    <span id="login_status"></span>
+              </div>
+          </fieldset>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset class="content">
+              <legend>
+                <h1>
+                  <span class="smaller">Registre seu Usuário</span>
+                </h1>
+              </legend>
+                <form>
+                    <div>
+                        <label>Nome de Usuário:</label><br/>
+                        <input type="text" name="username" placeholder="Digite um nome de usuário">
+                    </div>
+                    <div>
+                        <label>Senha:</label><br/>
+                        <input type="password" name="password">
+                    </div>
+                    <div>
+                        <br/><button type="submit" id="register_btn" class="btn">Registrar</button>
+                    </div>
+                    </form>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset class="content">
+              <legend>
+                <h1>
+                  <span class="smaller">Usuários no Banco de Dados</span>
+                </h1>
+              </legend>
+              <table>
+                <tr>
+                  <th>Username</th>
+                  <th>Password</th>
+                </tr>
+                  <tr tal:condition="not: users">
+                      <td>Sem usuários cadastrados.</td>
+                  </tr>
+                <tr tal:condition="users" tal:repeat="user users">
+                  <td>${user.username}</td>
+                  <td>${user.password}</td>
+                </tr>
+              </table>
+          </fieldset>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+          <fieldset class="content">
+              <legend>
+                <h1>
+                  <span class="smaller">Questões no Banco de Dados</span>
+                </h1>
+              </legend>
+              <table>
+                <tr>
+                  <th>Questão</th>
+                  <th>Alternativa1</th>
+                  <th>Alternativa2</th>
+                  <th>Alternativa3</th>
+                  <th>Alternativa4</th>
+                  <th>Resposta</th>
+                </tr>
+                <tr tal:repeat="questao questoes">
+                    <td>${questao.text}</td>
+                    <td>${questao.alternatives[0].text}</td>
+                    <td>${questao.alternatives[1].text}</td>
+                    <td>${questao.alternatives[2].text}</td>
+                    <td>${questao.alternatives[3].text}</td>
+                    <td>${questao.alternatives[questao.correct_alternative_pos - 1].text}</td>
+                </tr>
+              </table>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="${request.static_url('scrummando:static/index.js')}"></script>
+  </body>
+</html>

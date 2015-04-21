@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from pyramid.response import Response
 from pyramid.view import view_config
 
@@ -5,17 +7,37 @@ from sqlalchemy.exc import DBAPIError
 
 from .models import (
     DBSession,
-    MyModel,
+    Users,
+    Questions,
     )
+import transaction
 
 
-@view_config(route_name='home', renderer='templates/mytemplate.pt')
-def my_view(request):
-    try:
-        one = DBSession.query(MyModel).filter(MyModel.name == 'one').first()
-    except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
-    return {'one': one, 'project': 'scrummando'}
+
+@view_config(route_name='home', renderer='templates/index.pt')
+def index(request):
+    users = DBSession.query(Users).all()
+    questoes = DBSession.query(Questions).all()
+    return {'users': users, "questoes": questoes}
+
+@view_config(name='add_user', renderer='json')
+def add_user(request):
+    user_data = request.POST
+    new_user = Users(user_data["username"],user_data["password"])
+    DBSession.add(new_user)
+    transaction.commit()
+    return {'status': 'ok'}
+
+@view_config(name='login_user', renderer='json')
+def login_user(request):
+    user_data = request.POST
+    user = DBSession.query(Users).filter_by(username=user_data["username"]).first()
+    if not user:
+        return {'status': 'Nenhum Usuário com este nome'}
+    if user.password != user_data["password"]:
+        return {'status':'Senha incorreta'}
+    else:
+        return {'status': 'Usuário logado'}
 
 
 conn_err_msg = """\
