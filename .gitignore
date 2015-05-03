@@ -11,6 +11,7 @@
 # Python eggs
 *.egg-info
 *.egg
+*.eggs
 build
 dist
 #
