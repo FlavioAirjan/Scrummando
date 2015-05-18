@@ -2,8 +2,8 @@
 body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
-  color: #ffffff;
-  background: #bc2131;
+  color: #443F3F;
+	background: #F6EEFC;
 }
 h1,
 h2,
@@ -16,7 +16,23 @@ h6 {
 }
 p {
   font-weight: 300;
+	margin: 5px;
 }
+label{
+	margin: 5px;
+}
+input[type=radio]{
+	margin: 10px;
+}
+
+.btn{
+	margin: 5px;
+	background: #D8D3DA;
+}
+.btn:hover{
+	background: #B7ABBC;
+}
+
 .font-normal {
   font-weight: 400;
 }
@@ -27,25 +43,51 @@ p {
   font-weight: 700;
 }
 .starter-template {
-  margin-top: 150px;
+  margin-top: 50px;
+	margin-left: 100px;
 }
 .starter-template .content {
   margin-left: 10px;
+	width: auto;
+}
+.starter-template .content ul {
+	margin-top: 18px;
+	padding: 0;
+}
+.starter-template .content li {
+	display: inline;
+	border-bottom: 1px solid #E4DAE7;
+	list-style: none;
+	margin-top: 10px;
+	padding: 10px;
+}
+.starter-template .content li:hover {
+	background: #B7ABBC;
+	color: #640E92;
+}
+.starter-template .content li a {
+	font-size: 20px;
+  color: #640E92;
+	padding: 10px;
+	text-decoration: none;
 }
 .starter-template .content h1 {
   margin-top: 10px;
-  font-size: 60px;
+  font-size: 40px;
 }
 .starter-template .content h1 .smaller {
-  font-size: 40px;
-  color: #f2b7bd;
+  font-size: 20px;
+  color: #640E92;
 }
 .starter-template .content .lead {
-  font-size: 25px;
-  color: #f2b7bd;
+	font-size: 20px;
+  color: #443F3F;
 }
 .starter-template .content .lead .font-normal {
-  color: #ffffff;
+  color: #443F3F;
+}
+.rowQuestion {
+	margin-left: 20px;
 }
 .starter-template .links {
   float: right;
@@ -93,60 +135,4 @@ p {
   float: right;
   right: 0;
 }
-@media (max-width: 1199px) {
-  .starter-template .content h1 {
-    font-size: 45px;
-  }
-  .starter-template .content h1 .smaller {
-    font-size: 30px;
-  }
-  .starter-template .content .lead {
-    font-size: 20px;
-  }
-}
-@media (max-width: 991px) {
-  .starter-template {
-    margin-top: 0;
-  }
-  .starter-template .logo {
-    margin: 40px auto;
-  }
-  .starter-template .content {
-    margin-left: 0;
-    text-align: center;
-  }
-  .starter-template .content h1 {
-    margin-bottom: 20px;
-  }
-  .starter-template .links {
-    float: none;
-    text-align: center;
-    margin-top: 60px;
-  }
-  .starter-template .copyright {
-    float: none;
-    text-align: center;
-  }
-}
-@media (max-width: 767px) {
-  .starter-template .content h1 .smaller {
-    font-size: 25px;
-    display: block;
-  }
-  .starter-template .content .lead {
-    font-size: 16px;
-  }
-  .starter-template .links {
-    margin-top: 40px;
-  }
-  .starter-template .links ul li {
-    display: block;
-    margin: 0;
-  }
-  .starter-template .links ul li .icon-muted {
-    display: none;
-  }
-  .starter-template .copyright {
-    margin-top: 20px;
-  }
-}
+
