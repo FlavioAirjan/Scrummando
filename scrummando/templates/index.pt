@@ -76,7 +76,7 @@
 						</fieldset>
 					</div> <!-- Fim "row" -->
 					<div class="row">
-							<img class="logo img-responsive" style="max-height: 250px" src="${request.static_url('scrummando:static/logo4.png')}" alt="logo2">
+							<img class="logo img-responsive" style="max-height: 250px" src="${request.static_url('scrummando:static/logo4.png')}" alt="logo4">
 					</div> <!-- Fim "row" -->
 				</div> <!-- Fim "col-md-3" -->
 				
