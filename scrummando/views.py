@@ -16,9 +16,10 @@ import transaction
 
 @view_config(route_name='home', renderer='templates/index.pt')
 def index(request):
-    users = DBSession.query(Users).all()
     questoes = DBSession.query(Questions).all()
-    return {'users': users, "questoes": questoes}
+    users = DBSession.query(Users).all()
+    return {'users': users,"questoes": questoes}
+
 
 @view_config(name='add_user', renderer='json')
 def add_user(request):

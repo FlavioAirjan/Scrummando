@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+	<html lang="${request.locale_name}">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="pyramid web application">
+		<meta name="author" content="Pylons Project">
+		<link rel="shortcut icon" href="${request.static_url('scrummando:static/short.png')}">
+
+		<title>Scrummando</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this scaffold -->
+		<link href="${request.static_url('scrummando:static/theme.css')}" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="col-md-9">
+		<div class="starter-template">
+			<div class="container">
+			
+				<div class="col-md-3">
+					<div class="row" id="login_row" block>
+							<fieldset class="content">
+								<legend>
+									<h1>
+										<span class="smaller">Faça seu login</span>
+									</h1>
+								</legend>
+								<div>
+									<label>Nome de Usuário:</label><br/>
+									<input type="text" name="login_username" placeholder="Usuário">
+								</div>
+								<div>
+									<label>Senha:</label><br/>
+									<input type="password" name="login_password">
+								</div>
+								<div>
+									<button type="submit" id="login_btn" class="btn">Entrar</button>
+								</div>
+								<div>
+									<button type="submit" id="novo_btn" class="btn">Novo usuário?</button>
+								</div>
+								<div>
+									<p id="login_status"></p>
+								</div>
+							</fieldset>
+					</div> <!-- Fim "row" -->
+					<div class="row" id="register_row" hidden>
+						<fieldset class="content">
+							<legend>
+								<h1>
+									<span class="smaller">Novo Usuário?</span>
+								</h1>
+							</legend>
+							<div>
+								<label>Nome de Usuário:</label><br/>
+								<input type="text" name="username" placeholder="Nome de usuário">
+							</div>
+							<div>
+								<label>Senha:</label><br/>
+								<input type="password" name="password">
+							</div>
+							<div>
+								<button type="submit" id="register_btn" class="btn">Registrar</button>
+							</div>
+						</fieldset>
+					</div> <!-- Fim "row" -->
+					<div class="row">
+							<img class="logo img-responsive" style="max-height: 250px" src="${request.static_url('scrummando:static/logo4.png')}" alt="logo4">
+					</div> <!-- Fim "row" -->
+				</div> <!-- Fim "col-md-3" -->
+				
+				<div class="col-md-7">
+					<div class="row">
+						<fieldset class="content">
+							<ul>
+								<li><a href="">Home</a></li>
+								<li><a href="">Sobre</a></li>
+								<li><a href="">Iniciar jogo</a></li>
+								<li><a href="">Histórico</a></li>
+								<li><a href="">Salvar jogo</a></li>
+							</ul>
+						</fieldset> <!-- Fim "fieldset" -->
+					</div> <!-- Fim "row" -->
+					<div class="row" id="iniciar_jogo">
+						<div class="col-md-12">
+							<fieldset class="content">
+								<legend>
+									<h1>
+										<span class="smaller">Nível 1 de 5</span>
+									</h1>
+								</legend>
+									<div class="col-md-9 col-md-offset-1" tal:repeat="questao questoes">
+										<div class="row">
+											<span class="lead"><strong>${questao.text}</strong></span>
+										</div>
+										<div class="radio">
+											<div class="row">
+												<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+												<span class="lead">${questao.alternatives[0].text}</span>
+											</div>
+											<div class="row">
+													<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+													<span class="lead">${questao.alternatives[1].text}</span>
+											</div>
+											<div class="row">
+													<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+													<span class="lead">${questao.alternatives[2].text}</span>
+											</div>
+											<div class="row">
+													<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+													<span class="lead">${questao.alternatives[3].text}</span>
+											</div>
+										</div> <!-- Fim "div radio" -->
+										<span class="lead">${questao.alternatives[questao.correct_alternative_pos - 1].text}</span>
+										<div class="row">
+											<button type="submit" id="next_btn" class="btn pull-right">Próxima</button>
+										</div>
+									</div>
+							</fieldset>
+						</div> <!-- Fim "col-md-10" -->
+					</div> <!-- Fim "row" -->
+				</div> <!-- Fim "col-md7" -->
+				
+			</div> <!-- Fim "container" -->
+		</div> <!-- Fim "starter-template" -->
+		</div> <!-- Fim "col-md-9" -->
+		<div class="col-md-3">
+			<img class="logo img-responsive" style="max-width: 200px" src="${request.static_url('scrummando:static/margem.png')}" alt="logo2">
+		</div>
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="${request.static_url('scrummando:static/index.js')}"></script>
+	</body>
+</html>
