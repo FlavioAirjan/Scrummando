@@ -6,11 +6,13 @@ $("#register_btn").click(function(){
 
 	$.post("add_user", {"username":username,"password":password},function(data){
 		console.log(data)
-		location.reload()
 	})
 	
 	var register_row = document.getElementById("register_row")
-	register_row.style.display = "hidden"
+	register_row.style.display = "none"
+        
+        var login_row = document.getElementById("login_row")
+	login_row.style.display = "block"
 })
 
 $("#login_btn").click(function(){
@@ -39,7 +41,7 @@ $("#novo_btn").click(function(){
         }
 
         function show(shown) {
-            var all = ['home', 'iniciar_jogo'];
+            var all = ['home', 'iniciar_jogo','sobre'];
             var hide_these = diff(all, shown);
             var hidden;
             document.getElementById(shown).style.display='block';
@@ -55,6 +57,18 @@ $("#iniciarjogo_btn").click(function(){
 
 $("#home_btn").click(function(){
     	show("home")
+})
+
+$("#sobre_btn").click(function(){
+    	show("sobre")
+})
+
+$("#hist_btn").click(function(){
+    	
+})
+
+$("#salvar_btn").click(function(){
+    	
 })
 
 $(document).ready(function(){
