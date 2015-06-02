@@ -52,7 +52,7 @@ $("#novo_btn").click(function(){
         }
 
 $("#iniciarjogo_btn").click(function(){
-       show('iniciar_jogo')
+       show("iniciar_jogo")
 })
 
 $("#home_btn").click(function(){

@@ -81,6 +81,7 @@
 				</div> <!-- Fim "col-md-3" -->
 				
 				<div class="col-md-7">
+				
 					<div class="row">
 						<fieldset class="content">
 							<ul>
@@ -92,77 +93,77 @@
 							</ul>
 						</fieldset> <!-- Fim "fieldset" -->
 					</div> <!-- Fim "row" -->
-                                
-						<div class="col-md-10">
-                                                        <div class="row" id="home">
-                                                            <body>
-                                                            <font size="18" color="#9328B0">Scrumando</font>
-                                                            <p><b> A maneira divertida de aprender Scrum.</b></p><br/>
-                                                            <pre>
-                                                                 Scrumando é um jogo com o objetivo de ensinar o modelo de desenvolvimento ágil Scrum para iniciantes.
-                                                                 De uma forma interativa e divertida o jogador entrará no mundo do desenvolvimento de software e será desafiado por vários tipos de perguntas, passando por todas as etapas do Scrum.
-                                                                 Familiarize com as tecnicas de desenvolvimento ágil do Scrum e transforme-se em um <b>Scrum Master</b>!
-                                                            </pre>
-                                                            <img class="logo img-responsive" style="max-height: 400px" " src="${request.static_url('scrummando:static/scrum-master.png')}" alt="scrum-master">
-                                                            </body>
-                                                        </div> <!-- Fim "row" -->
-                                                        <div class="row" id="iniciar_jogo" hidden>
-                                                            <fieldset class="content">
-                                                                    <legend>
-                                                                            <h1>
-                                                                                    <span class="smaller">Nível 1 de 5</span>
-                                                                            </h1>
-                                                                    </legend>
-                                                                            <div class="col-md-9" tal:repeat="questao questoes">
-                                                                                    <div class="row">
-                                                                                            <span class="lead"><strong>${questao.text}</strong></span>
-                                                                                    </div>
-                                                                                    <div class="radio" id="resposta">
-                                                                                            <div class="row">
-                                                                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                                                                                    <span class="lead">${questao.alternatives[0].text}</span>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                                                                                            <span class="lead">${questao.alternatives[1].text}</span>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                                                                                            <span class="lead">${questao.alternatives[2].text}</span>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-                                                                                                            <span class="lead">${questao.alternatives[3].text}</span>
-                                                                                            </div>
-                                                                                    </div> <!-- Fim "div radio" -->
-                                                                                    <!--  <span class="lead">${questao.alternatives[questao.correct_alternative_pos - 1].text}</span> -->
-                                                                                    <div class="row">
-                                                                                            <button type="submit" id="next_btn" class="btn pull-right">Próxima</button>
-                                                                                    </div>
-                                                                            </div>
-                                                            </fieldset>
-                                                        </div> <!-- Fim "row" -->
-                                                        <div class="row" id="sobre" hidden>
-                                                            <body>
-                                                            <font size="18" color="#9328B0">Scrumando</font>
-                                                            <p><b> A maneira divertida de aprender Scrum.</b></p><br/>
-                                 
-                                                               <p><b><font size="3" color="#B773CB">Objetivo do jogo</font></b>: <font size="3" color="#4E4848">Você deve se tornar um Scrum Master, para isso você deve conseguir 150 pontos errando menos de 5 vezes.</font></p>
-                                                               <br> </br> 
-                                                               <p><b><font size="3" color="#B773CB">Regras:</font></b> <b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Cada resposta correta soma-se 10 pontos a sua pontuação.</font></p>
-                                                                          <p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Ao responder uma questão será informado se acertou ou errou a questão, mas não idicará qual a resposta correta em caso de erro.</font></p>
-                                                                          <p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> A pontuação será somada altomaticamente e informada em um campo do lado direito acima das perguntas.</font></p>
-                                                                          <p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Se chegar a 150 pontos parabéns! Você é um Scrum Master!</font></p>
-                                                                          <p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Caso ocorra 5 erros o jogo termina. Que Pena! Você não é um Scrum Master ainda, mas não desanime, você pode tentar quantas vezes quiser.</font></p>
-                                                            <br> </br>  
-                                                            <br> </br> 
-                                                            </body>
-                                                            <footer> 
-                                                            <small> Este é um trabalho acadêmico desenvolvido pelo grupo Scrummando do curso de Engenharia de Software da Universidade Federal de Minas Gerais. 
-                                                               O objetivo do trabalho é desenvolver um jogo para ensinar conceitos de engenharia de software, neste caso o Scrum.</small>    
-                                                            </footer> 
-                                                        </div> <!-- Fim "row" -->
-						</div> <!-- Fim "col-md-10" -->                                              
+					
+					
+					<!-- FLEXIBLE PART-->
+					
+					<div class="row" id="home">
+						<font size="18" color="#9328B0">Scrumando</font>
+						<p><b> A maneira divertida de aprender Scrum</b></p><br/>
+						<p>
+								 Scrumando é um jogo com o objetivo de ensinar o modelo de desenvolvimento ágil Scrum para iniciantes.<br/><br/>
+								 De uma forma interativa e divertida o jogador entrará no mundo do desenvolvimento de software 
+								 e será desafiado por vários tipos de perguntas, passando por todas as etapas do Scrum.<br/><br/>
+								 Familiarize-se com as tecnicas de desenvolvimento ágil do Scrum e transforme-se em um <b>Scrum Master</b>!
+						</p>
+					</div> <!-- Fim "row" -->
+					
+					
+					<div class="row" id="iniciar_jogo" hidden>
+						<fieldset class="content">
+							<legend>
+								<h1><span class="smaller">Nível 1 de 5</span></h1>
+							</legend>
+							<div class="col-md-9" tal:repeat="questao questoes">
+								<div class="row">
+												<span class="lead"><strong>${questao.text}</strong></span>
+								</div>
+								<div class="radio" id="resposta">
+									<div class="row">
+										<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+										<span class="lead">${questao.alternatives[0].text}</span>
+									</div>
+									<div class="row">
+										<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+										<span class="lead">${questao.alternatives[1].text}</span>
+									</div>
+									<div class="row">
+										<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+										<span class="lead">${questao.alternatives[2].text}</span>
+									</div>
+									<div class="row">
+										<input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
+										<span class="lead">${questao.alternatives[3].text}</span>
+									</div>
+								</div> <!-- Fim "div radio" -->
+								<!--	<span class="lead">${questao.alternatives[questao.correct_alternative_pos - 1].text}</span> -->
+								<div class="row">
+									<button type="submit" id="next_btn" class="btn pull-right">Próxima</button>
+								</div>
+							</div>
+						</fieldset>
+					</div> <!-- Fim "row" -->
+					
+					
+					<div class="row" id="sobre" hidden>
+						<font size="18" color="#9328B0">Scrumando</font>
+						<p><b>A maneira divertida de aprender Scrum.</b></p><br/>
+							<p><b><font size="3" color="#B773CB">Objetivo do jogo</font></b>: <font size="3" color="#4E4848">Você deve se tornar um Scrum Master, para isso você deve conseguir 150 pontos errando menos de 5 vezes.</font></p>
+							<br></br> 
+							<p><b><font size="3" color="#B773CB">Regras:</font></b> <b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Cada resposta correta soma-se 10 pontos a sua pontuação.</font></p>
+								<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Ao responder uma questão será informado se acertou ou errou a questão, mas não idicará qual a resposta correta em caso de erro.</font></p>
+								<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> A pontuação será somada altomaticamente e informada em um campo do lado direito acima das perguntas.</font></p>
+								<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Se chegar a 150 pontos parabéns! Você é um Scrum Master!</font></p>
+								<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Caso ocorra 5 erros o jogo termina. Que Pena! Você não é um Scrum Master ainda, mas não desanime, você pode tentar quantas vezes quiser.</font></p>
+						<br></br>	
+						<br></br>
+						<footer> 
+						<small> Este é um trabalho acadêmico desenvolvido pelo grupo Scrummando do curso de Engenharia de Software da Universidade Federal de Minas Gerais. 
+							 O objetivo do trabalho é desenvolver um jogo para ensinar conceitos de engenharia de software, neste caso o Scrum.</small>		
+						</footer> 
+					</div> <!-- Fim "row" -->
+					
+					
 				</div> <!-- Fim "col-md7" -->
 				
 			</div> <!-- Fim "container" -->
