@@ -107,44 +107,42 @@
 								 Familiarize-se com as tecnicas de desenvolvimento ágil do Scrum e transforme-se em um <b>Scrum Master</b>!
 						</p>
 					</div> <!-- Fim "row" -->
-					
-					
-					<div class="row" id="iniciar_jogo" hidden>
-						<fieldset class="content">
-							<legend>
-								<h1><span class="smaller">Nível 1 de 5</span></h1>
-							</legend>
-							<div class="col-md-9" tal:repeat="questao questoes">
-								<div class="row">
-												<span class="lead"><strong>${questao.text}</strong></span>
-								</div>
-								<div class="radio" id="resposta">
-									<div class="row">
-										<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-										<span class="lead">${questao.alternatives[0].text}</span>
-									</div>
-									<div class="row">
-										<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-										<span class="lead">${questao.alternatives[1].text}</span>
-									</div>
-									<div class="row">
-										<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-										<span class="lead">${questao.alternatives[2].text}</span>
-									</div>
-									<div class="row">
-										<input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-										<span class="lead">${questao.alternatives[3].text}</span>
-									</div>
-								</div> <!-- Fim "div radio" -->
-								<!--	<span class="lead">${questao.alternatives[questao.correct_alternative_pos - 1].text}</span> -->
-								<div class="row">
-									<button type="submit" id="next_btn" class="btn pull-right">Próxima</button>
-								</div>
-							</div>
-						</fieldset>
-					</div> <!-- Fim "row" -->
-					
-					
+					   <div class="row #{@variable.number}" id="iniciar_jogo" tal:define="global number python: 0" hidden>
+                                                            <fieldset class="content">
+                                                                    <legend>
+                                                                            <h1>
+                                                                                    <span class="smaller">Nível 1 de 5</span>
+                                                                            </h1>
+                                                                    </legend>
+                                                                            <div class="col-md-9" id="m_questao" tal:define="questao questoes">
+                                                                                    <div class="row">
+                                                                                            <span class="lead"><strong>${questao[number].text}</strong></span>
+                                                                                    </div>
+                                                                                    <div class="radio" id="resposta">
+                                                                                            <div class="row">
+                                                                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                                                                                    <span tal:content="questao[number].alternatives[0].text"></span>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                                                                                            <span tal:content="questao[number].alternatives[1].text"></span>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                                                                                                            <span tal:content="questao[number].alternatives[2].text"></span>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
+                                                                                                            <span tal:content="questao[number].alternatives[3].text"></span>
+                                                                                            </div>
+                                                                                    </div> <!-- Fim "div radio" -->
+                                                                                  <!-- <span tal:content="questao.alternatives[questao[number].correct_alternative_pos - 1].text"></span> -->
+                                                                                    <div class="row">
+                                                                                            <button type="submit" id="next_btn" class="btn pull-right"  >Próxima</button>
+                                                                                    </div>
+                                                                            </div>
+                                                             </fieldset>
+                                                        </div> <!-- Fim "row" -->	
 					<div class="row" id="sobre" hidden>
 						<font size="18" color="#9328B0">Scrumando</font>
 						<p><b>A maneira divertida de aprender Scrum.</b></p><br/>
@@ -162,10 +160,7 @@
 							 O objetivo do trabalho é desenvolver um jogo para ensinar conceitos de engenharia de software, neste caso o Scrum.</small>		
 						</footer> 
 					</div> <!-- Fim "row" -->
-					
-					
-				</div> <!-- Fim "col-md7" -->
-				
+				</div> <!-- Fim "col-md7" -->	
 			</div> <!-- Fim "container" -->
 		</div> <!-- Fim "starter-template" -->
 		</div> <!-- Fim "col-md-9" -->

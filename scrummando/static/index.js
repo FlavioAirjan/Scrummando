@@ -71,6 +71,12 @@ $("#salvar_btn").click(function(){
     	
 })
 
+$("#next_btn").click(function(){
+    var questao = document.getElementById("iniciar_jogo");
+    questao.number="1";
+    questao.style.display='block';
+})
+
 $(document).ready(function(){
 	
 })
