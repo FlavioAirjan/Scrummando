@@ -11,7 +11,7 @@
 		<title>Scrummando</title>
 
 		<!-- Bootstrap core CSS -->
-		<link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+		<link href="${request.static_url('scrummando:static/bootstrap.min.css')}" rel="stylesheet">
 
 		<!-- Custom styles for this scaffold -->
 		<link href="${request.static_url('scrummando:static/theme.css')}" rel="stylesheet">
@@ -24,16 +24,16 @@
 	</head>
 
 	<body>
-		<div class="col-md-9">
+		<div>
 		<div class="starter-template">
-			<div class="container">
+			<div>
 			
 				<div class="col-md-3">
-					<div class="row" id="login_row">
+					<div tal:condition="not:logged" class="row" id="login_row">
 							<fieldset class="content">
 								<legend>
 									<h1>
-										<span class="smaller">Faça seu login</span>
+										<span class="smaller">Faça seu login antes de jogar</span>
 									</h1>
 								</legend>
 								<div>
@@ -50,13 +50,14 @@
 								<div>
 									<button type="submit" id="novo_btn" class="btn">Novo usuário?</button>
 								</div>
+								<div><a href="/list_users">Lista de usuários cadastrados</a></div>
 								<div>
 									<p id="login_status"></p>
 								</div>
 							</fieldset>
 					</div> <!-- Fim "row" -->
-					<div class="row" id="register_row" hidden>
-						<fieldset class="content">
+					<div tal:condition="not:logged" class="row" id="register_row" hidden>
+						<fieldset tal:condition="not:logged" class="content">
 							<legend>
 								<h1>
 									<span class="smaller">Novo Usuário?</span>
@@ -75,25 +76,35 @@
 							</div>
 						</fieldset>
 					</div> <!-- Fim "row" -->
-					<div class="row">
-							<img class="logo img-responsive" style="max-height: 250px" src="${request.static_url('scrummando:static/logo4.png')}" alt="logo4">
+					<div class="row" >
+							<img class="logo img-responsive" style="float:left;max-height: 200px" src="${request.static_url('scrummando:static/logo4.png')}" alt="logo4">
 					</div> <!-- Fim "row" -->
 				</div> <!-- Fim "col-md-3" -->
 				
+
 				<div class="col-md-7">
-				
+					<div tal:condition="logged" class="row">
+						<fieldset class="content">
+							<span class="welcome_msg">Bem vindo <span class="username">${logged}</span></span>
+						<fieldset
+					</div>
 					<div class="row">
 						<fieldset class="content">
 							<ul>
-								<li onclick="index()" id="home_btn"><a href="javascript:void(0)">Home</a></li>
-								<li onclick="index()" id="sobre_btn" ><a href="javascript:void(0)">Sobre</a></li>
-								<li onclick="index()" id="iniciarjogo_btn"><a href="javascript:void(0)">Iniciar jogo</a></li>
-								<li onclick="index()" id="hist_btn" ><a href="javascript:void(0)">Histórico</a></li>
-								<li onclick="index()" id="salvar_btn" ><a href="javascript:void(0)">Salvar jogo</a></li>
+								<li id="home_btn"><a href="javascript:void(0)">Home</a></li>
+								<li id="sobre_btn" ><a href="javascript:void(0)">Sobre</a></li>
+								<li tal:condition="logged" id="iniciarjogo_btn"><a href="javascript:void(0)">Iniciar jogo</a></li>
+								
+								<li id="iniciarjogo_btn_falso" tal:condition="not: logged"><a href="javascript:void(0)">Iniciar jogo</a></li>
+								
+								<li id="hist_btn" ><a href="javascript:void(0)">Histórico</a></li>
+								
+								<li  id="salvar_btn" ><a href="javascript:void(0)">Salvar jogo</a></li>
+								
+								<li  tal:condition="logged"  id="salvar_btn" ><a href="/logout">Logout</a></li>
 							</ul>
 						</fieldset> <!-- Fim "fieldset" -->
-					</div> <!-- Fim "row" -->
-					
+
 					
 					<!-- FLEXIBLE PART-->
 					
@@ -108,41 +119,41 @@
 						</p>
 					</div> <!-- Fim "row" -->
 					   <div class="row #{@variable.number}" id="iniciar_jogo" tal:define="global number python: 0" hidden>
-                                                            <fieldset class="content">
-                                                                    <legend>
-                                                                            <h1>
-                                                                                    <span class="smaller">Nível 1 de 5</span>
-                                                                            </h1>
-                                                                    </legend>
-                                                                            <div class="col-md-9" id="m_questao" tal:define="questao questoes">
-                                                                                    <div class="row">
-                                                                                            <span class="lead"><strong>${questao[number].text}</strong></span>
-                                                                                    </div>
-                                                                                    <div class="radio" id="resposta">
-                                                                                            <div class="row">
-                                                                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                                                                                    <span tal:content="questao[number].alternatives[0].text"></span>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                                                                                            <span tal:content="questao[number].alternatives[1].text"></span>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                                                                                            <span tal:content="questao[number].alternatives[2].text"></span>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-                                                                                                            <span tal:content="questao[number].alternatives[3].text"></span>
-                                                                                            </div>
-                                                                                    </div> <!-- Fim "div radio" -->
-                                                                                  <!-- <span tal:content="questao.alternatives[questao[number].correct_alternative_pos - 1].text"></span> -->
-                                                                                    <div class="row">
-                                                                                            <button type="submit" id="next_btn" class="btn pull-right"  >Próxima</button>
-                                                                                    </div>
-                                                                            </div>
-                                                             </fieldset>
-                                                        </div> <!-- Fim "row" -->	
+			<fieldset class="content">
+			<legend>
+			<h1>
+			        <span class="smaller">Nível 1 de 5</span>
+			</h1>
+			</legend>
+			<div id="m_questao" tal:define="questao questoes">
+			        <div class="row">
+			                <span class="lead"><strong>${questao[number].text}</strong></span>
+			        </div>
+			        <div class="radio" id="resposta">
+			                <div class="row">
+			                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+			                        <span tal:content="questao[number].alternatives[0].text"></span>
+			                </div>
+			                <div class="row">
+			                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+			                                <span tal:content="questao[number].alternatives[1].text"></span>
+			                </div>
+			                <div class="row">
+			                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+			                                <span tal:content="questao[number].alternatives[2].text"></span>
+			                </div>
+			                <div class="row">
+			                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
+			                                <span tal:content="questao[number].alternatives[3].text"></span>
+			                </div>
+			        </div> <!-- Fim "div radio" -->
+			      <!-- <span tal:content="questao.alternatives[questao[number].correct_alternative_pos - 1].text"></span> -->
+			        <div class="row">
+			                <button type="submit" id="next_btn" class="btn pull-left"  >Próxima</button>
+			        </div>
+					</div>
+				</fieldset>
+            </div> <!-- Fim "row" -->	
 					<div class="row" id="sobre" hidden>
 						<font size="18" color="#9328B0">Scrumando</font>
 						<p><b>A maneira divertida de aprender Scrum.</b></p><br/>
@@ -159,20 +170,26 @@
 						<small> Este é um trabalho acadêmico desenvolvido pelo grupo Scrummando do curso de Engenharia de Software da Universidade Federal de Minas Gerais. 
 							 O objetivo do trabalho é desenvolver um jogo para ensinar conceitos de engenharia de software, neste caso o Scrum.</small>		
 						</footer> 
+
 					</div> <!-- Fim "row" -->
+					</div> <!-- Fim "row" -->
+					
+					
 				</div> <!-- Fim "col-md7" -->	
+				
 			</div> <!-- Fim "container" -->
+			<div class="col-md-2" style="float:right">
+						<img class="logo img-responsive" style="max-width: 200px; float:right" src="${request.static_url('scrummando:static/margem.png')}" alt="logo2">
+					</div>
 		</div> <!-- Fim "starter-template" -->
 		</div> <!-- Fim "col-md-9" -->
-		<div class="col-md-3">
-			<img class="logo img-responsive" style="max-width: 200px" src="${request.static_url('scrummando:static/margem.png')}" alt="logo2">
-		</div>
+		
 
 		<!-- Bootstrap core JavaScript
 		================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="${request.static_url('scrummando:static/jquery.min.js')}"></script>
+		<script src="${request.static_url('scrummando:static/bootstrap.min.js')}"></script>
 		<script src="${request.static_url('scrummando:static/index.js')}"></script>
 	</body>
 </html>

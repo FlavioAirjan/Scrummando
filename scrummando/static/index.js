@@ -22,7 +22,14 @@ $("#login_btn").click(function(){
 	console.log(password)
 
 	$.post("login_user", {"username":username,"password":password},function(data){
-		$("#login_status").html(data["status"])
+		 if(data.logged){
+                document.cookie = data.cookies[0][1];
+                document.cookie = data.cookies[0][2];
+                document.cookie = data.cookies[0][3];
+                location.reload();
+            } else {
+        		$("#login_status").html(data["status"])
+            }
 	})
 })
 
@@ -61,6 +68,10 @@ $("#home_btn").click(function(){
 
 $("#sobre_btn").click(function(){
     	show("sobre")
+})
+
+$("#iniciarjogo_btn_falso").click(function(){
+	alert("Por favor, faça o login ou registre-se");
 })
 
 $("#hist_btn").click(function(){

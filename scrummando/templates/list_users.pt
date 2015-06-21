@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+	<html lang="${request.locale_name}">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="pyramid web application">
+		<meta name="author" content="Pylons Project">
+		<link rel="shortcut icon" href="${request.static_url('scrummando:static/short.png')}">
+
+		<title>Scrummando</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="${request.static_url('scrummando:static/bootstrap.min.css')}" rel="stylesheet">
+
+		<!-- Custom styles for this scaffold -->
+		<link href="${request.static_url('scrummando:static/theme.css')}" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="container col-md-12">
+		<table style="margin:auto">
+			<tr>
+				<th>Nome</th>
+				<th>Senha</th>
+			</tr>
+			<tr tal:repeat="user users">
+				<td>${user.username}</td>
+				<td>${user.password}</td>
+			</tr>
+		</table>
+
+		</div> 
+		
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="${request.static_url('scrummando:static/jquery.min.js')}"></script>
+		<script src="${request.static_url('scrummando:static/bootstrap.min.js')}"></script>
+		<script src="${request.static_url('scrummando:static/index.js')}"></script>
+	</body>
+</html>
