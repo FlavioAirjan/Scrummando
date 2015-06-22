@@ -28,19 +28,24 @@ def add_user(request):
     new_user = Users(user_data["username"],user_data["password"])
     DBSession.add(new_user)
     transaction.commit()
-    return {'status': 'ok'}
+    return {'status': 'ok',"registered":True}
 
 @view_config(name='list_users', renderer='templates/list_users.pt')
 def list_users(request):
     users = DBSession.query(Users).all()
     return {'users': users}
 
+@view_config(name='list_questions', renderer='templates/list_questions.pt')
+def list_questions(request):
+    questoes = DBSession.query(Questions).all()
+    return {'questoes': questoes}
+
 @view_config(name='login_user', renderer='json')
 def login_user(request):
     user_data = request.POST
     user = DBSession.query(Users).filter_by(username=user_data["username"]).first()
     if not user:
-        return {'status': 'Nenhum Usuário com este nome',"logged" : False}
+        return {'status': 'Nenhum usuário com este nome',"logged" : False}
     if user.password != user_data["password"]:
         return {'status':'Senha incorreta',"logged" : False}
     else:

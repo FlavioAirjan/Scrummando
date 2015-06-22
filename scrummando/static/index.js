@@ -1,3 +1,81 @@
+var USER_ANSWERS = {}
+var LETTERS = {1:"A",2:"B",3:"C",4:"D"}
+
+function updateUserData(){
+	radio_respostas = $("input[type=radio]:checked")
+	radio_respostas.each(function(){
+		questao = parseInt(this.getAttribute("name").substr(1))
+		resposta = parseInt(this.getAttribute("value"))
+		USER_ANSWERS[questao] = resposta
+	})
+
+	respostas_tabela = $(".resposta")
+	$.each(USER_ANSWERS,function(key, value){
+		$(respostas_tabela[key-1]).html(LETTERS[value])
+	})
+	
+}
+
+function createUserData(){
+	max_q = $("#max_q").val()
+	for (var i = 1; i <= max_q; i++) {
+		USER_ANSWERS[i]	= ""
+	}
+}
+
+function showPreviousQuesiton(){
+	// Check max
+	
+	if($("#current_q").val() == 1){
+		console.log("Min questions")
+		return
+	}
+	current_q = $("#current_q").val()
+	current_q--
+	$("#current_q").val(current_q)
+	$("#question_counter").html($("#current_q").val())
+	$(".questao").hide()
+	$($(".questao")[current_q-1]).show()
+}
+
+function showNextQuesiton(){
+	// Check max
+	
+	if($("#max_q").val() == $("#current_q").val()){
+		console.log("Max questions")
+		return
+	}
+	current_q = $("#current_q").val()
+	current_q++
+	$("#current_q").val(current_q)
+	$("#question_counter").html($("#current_q").val())
+	$(".questao").hide()
+	$($(".questao")[current_q-1]).show()
+}
+
+function manageQuestoes(){
+	$(".questao").hide()
+	$(".questao").first().show()
+}
+
+function showContent(Jcontent){
+	$("#home").hide()
+	$("#questoes_content").hide()
+	$("#sobre").hide()
+	Jcontent.show()
+}
+
+function makeBoldMenu(menu){
+	$("#iniciarjogo_btn").css("font-weight","normal")
+	$("#home_btn").css("font-weight","normal")
+	$("#sobre_btn").css("font-weight","normal")
+	$("#iniciarjogo_btn_falso").css("font-weight","normal")
+	$("#hist_btn").css("font-weight","normal")
+	$("#salvar_btn").css("font-weight","normal")
+	$("#logout_btn").css("font-weight","normal")
+	menu.style.fontWeight = "bold"
+}
+
 $("#register_btn").click(function(){
 	var username = $("input[name=username]").val()
 	var password = $("input[name=password]").val()
@@ -5,6 +83,13 @@ $("#register_btn").click(function(){
 	console.log(password)
 
 	$.post("add_user", {"username":username,"password":password},function(data){
+		if(data.registered == true){
+			$("#login_status").parent().show()
+			$("#login_status").html("Usuário registrado com sucesso.")
+		} else {
+			$("#login_status").parent().show()
+			$("#login_status").html("Favor tente registrar novamente.")
+		}
 		console.log(data)
 	})
 	
@@ -29,9 +114,15 @@ $("#login_btn").click(function(){
                 location.reload();
             } else {
         		$("#login_status").html(data["status"])
+        		$("#login_status").parent().show()
             }
 	})
 })
+
+$("input[type=radio]").change(function(){
+	updateUserData()
+})
+
 
 $("#novo_btn").click(function(){
 	var login_row = document.getElementById("login_row")
@@ -41,33 +132,22 @@ $("#novo_btn").click(function(){
 	register_row.style.display = "block"
 })
 
- function diff(A, B) {
-            return A.filter(function (a) {
-                return B.indexOf(a) == -1;
-            });
-        }
 
-        function show(shown) {
-            var all = ['home', 'iniciar_jogo','sobre'];
-            var hide_these = diff(all, shown);
-            var hidden;
-            document.getElementById(shown).style.display='block';
-            for(hidden in hide_these)
-                document.getElementById(hide_these[hidden]).style.display='none';
-            $(".sidebar").slideToggle(600);
-            return false;
-        }
+
 
 $("#iniciarjogo_btn").click(function(){
-       show("iniciar_jogo")
+       makeBoldMenu(this)
+       showContent($("#questoes_content"))
 })
 
 $("#home_btn").click(function(){
-    	show("home")
+	    makeBoldMenu(this)
+    	showContent($("#home"))
 })
 
 $("#sobre_btn").click(function(){
-    	show("sobre")
+		makeBoldMenu(this)
+    	showContent($("#sobre"))
 })
 
 $("#iniciarjogo_btn_falso").click(function(){
@@ -75,19 +155,28 @@ $("#iniciarjogo_btn_falso").click(function(){
 })
 
 $("#hist_btn").click(function(){
-    	
+    	makeBoldMenu(this)
 })
 
 $("#salvar_btn").click(function(){
-    	
+    	makeBoldMenu(this)
 })
-
+$("#previous_btn").click(function(){
+	showPreviousQuesiton()
+    // var questao = document.getElementById("iniciar_jogo");
+    // questao.number="1";
+    // questao.style.display='block';
+})
 $("#next_btn").click(function(){
-    var questao = document.getElementById("iniciar_jogo");
-    questao.number="1";
-    questao.style.display='block';
+	showNextQuesiton()
+    // var questao = document.getElementById("iniciar_jogo");
+    // questao.number="1";
+    // questao.style.display='block';
 })
 
 $(document).ready(function(){
-	
+	makeBoldMenu($("#home_btn")[0])
+	showContent($("#home"))
+	manageQuestoes()
+	createUserData()
 })

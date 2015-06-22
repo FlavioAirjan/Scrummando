@@ -36,6 +36,9 @@
 										<span class="smaller">Faça seu login antes de jogar</span>
 									</h1>
 								</legend>
+								<div class="col-md-10 collapse alert alert-warning">
+									<p id="login_status"></p>
+								</div>
 								<div>
 									<label>Nome de Usuário:</label><br/>
 									<input type="text" name="login_username" placeholder="Usuário">
@@ -51,9 +54,6 @@
 									<button type="submit" id="novo_btn" class="btn">Novo usuário?</button>
 								</div>
 								<div><a href="/list_users">Lista de usuários cadastrados</a></div>
-								<div>
-									<p id="login_status"></p>
-								</div>
 							</fieldset>
 					</div> <!-- Fim "row" -->
 					<div tal:condition="not:logged" class="row" id="register_row" hidden>
@@ -97,11 +97,11 @@
 								
 								<li id="iniciarjogo_btn_falso" tal:condition="not: logged"><a href="javascript:void(0)">Iniciar jogo</a></li>
 								
-								<li id="hist_btn" ><a href="javascript:void(0)">Histórico</a></li>
+								<li tal:condition="logged" id="hist_btn" ><a href="javascript:void(0)">Histórico</a></li>
 								
-								<li  id="salvar_btn" ><a href="javascript:void(0)">Salvar jogo</a></li>
+								<li tal:condition="logged"  id="salvar_btn" ><a href="javascript:void(0)">Salvar jogo</a></li>
 								
-								<li  tal:condition="logged"  id="salvar_btn" ><a href="/logout">Logout</a></li>
+								<li  tal:condition="logged"  id="logout_btn" ><a href="/logout">Logout</a></li>
 							</ul>
 						</fieldset> <!-- Fim "fieldset" -->
 
@@ -118,60 +118,82 @@
 								 Familiarize-se com as tecnicas de desenvolvimento ágil do Scrum e transforme-se em um <b>Scrum Master</b>!
 						</p>
 					</div> <!-- Fim "row" -->
-					   <div class="row #{@variable.number}" id="iniciar_jogo" tal:define="global number python: 0" hidden>
-			<fieldset class="content">
-			<legend>
-			<h1>
-			        <span class="smaller">Nível 1 de 5</span>
-			</h1>
-			</legend>
-			<div id="m_questao" tal:define="questao questoes">
-			        <div class="row">
-			                <span class="lead"><strong>${questao[number].text}</strong></span>
-			        </div>
-			        <div class="radio" id="resposta">
-			                <div class="row">
-			                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-			                        <span tal:content="questao[number].alternatives[0].text"></span>
-			                </div>
-			                <div class="row">
-			                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-			                                <span tal:content="questao[number].alternatives[1].text"></span>
-			                </div>
-			                <div class="row">
-			                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-			                                <span tal:content="questao[number].alternatives[2].text"></span>
-			                </div>
-			                <div class="row">
-			                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-			                                <span tal:content="questao[number].alternatives[3].text"></span>
-			                </div>
-			        </div> <!-- Fim "div radio" -->
-			      <!-- <span tal:content="questao.alternatives[questao[number].correct_alternative_pos - 1].text"></span> -->
-			        <div class="row">
-			                <button type="submit" id="next_btn" class="btn pull-left"  >Próxima</button>
-			        </div>
-					</div>
-				</fieldset>
-            </div> <!-- Fim "row" -->	
-					<div class="row" id="sobre" hidden>
-						<font size="18" color="#9328B0">Scrumando</font>
-						<p><b>A maneira divertida de aprender Scrum.</b></p><br/>
-							<p><b><font size="3" color="#B773CB">Objetivo do jogo</font></b>: <font size="3" color="#4E4848">Você deve se tornar um Scrum Master, para isso você deve conseguir 150 pontos errando menos de 5 vezes.</font></p>
-							<br></br> 
-							<p><b><font size="3" color="#B773CB">Regras:</font></b> <b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Cada resposta correta soma-se 10 pontos a sua pontuação.</font></p>
-								<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Ao responder uma questão será informado se acertou ou errou a questão, mas não idicará qual a resposta correta em caso de erro.</font></p>
-								<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> A pontuação será somada altomaticamente e informada em um campo do lado direito acima das perguntas.</font></p>
-								<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Se chegar a 150 pontos parabéns! Você é um Scrum Master!</font></p>
-								<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Caso ocorra 5 erros o jogo termina. Que Pena! Você não é um Scrum Master ainda, mas não desanime, você pode tentar quantas vezes quiser.</font></p>
-						<br></br>	
-						<br></br>
-						<footer> 
-						<small> Este é um trabalho acadêmico desenvolvido pelo grupo Scrummando do curso de Engenharia de Software da Universidade Federal de Minas Gerais. 
-							 O objetivo do trabalho é desenvolver um jogo para ensinar conceitos de engenharia de software, neste caso o Scrum.</small>		
-						</footer> 
+				<div class="row" id="questoes_content" hidden>	
+					<fieldset class="content">
+					<legend>
+					<h1>
+					        <span class="smaller">Nível 1 de 5</span><span style="float:right;"> <span id="question_counter">1</span>/<span>${python: len(questoes)}</span></span>
+					</h1>
+					</legend>
+					<div class="col-md-10">
+							<div class="questao" tal:repeat="questao questoes">
+								<input id="current_q" type="text" value="${repeat.questao.number}" />
+								<input id="max_q" type="text" value="${repeat.questao.length}" />
+						        <div class="row">
+						                <span class="lead"><strong>${questao.text}</strong></span>
+						        </div>
+						        <div class="radio" id="resposta">
+						                <div class="row">
+						                        A - <input type="radio" name="q${repeat.questao.number}" id="optionsRadios1" value="1" >
+						                        <span tal:content="questao.alternatives[0].text"></span>
+						                </div>
+						                <div class="row">
+						                               B - <input type="radio" name="q${repeat.questao.number}" id="optionsRadios2" value="2" />
+						                                <span tal:content="questao.alternatives[1].text"></span>
+						                </div>
+						                <div class="row">
+						                               C -  <input type="radio" name="q${repeat.questao.number}" id="optionsRadios3" value="3" />
+						                                <span tal:content="questao.alternatives[2].text"></span>
+						                </div>
+						                <div class="row">
+						                               D -  <input type="radio" name="q${repeat.questao.number}" id="optionsRadios4" value="4" />
+						                                <span tal:content="questao.alternatives[3].text"></span>
+						                </div>
+						        </div> <!-- Fim "div radio" -->
+						      <!-- <span tal:content="questao.alternatives[questao[number].correct_alternative_pos - 1].text"></span> -->
+								</div>
+							<div class="row">
+					                <button type="submit" id="previous_btn" class="btn changeQuestion"  >Anterior</button>
+					                <button type="submit" id="next_btn" class="btn changeQuestion"  >Próxima</button>
+					                <button type="submit" id="submit_btn" class="btn submitAnswers" style="float:right"  >Submeter Resposta</button>
+					        </div>
+						</div>
+						<div class="col-md-2">
+							<div style="text-align:center">
+								Suas Respostas
+							</div>
+							<table class="table">
+								<tr>
+									<td>#Q</td>
+									<td>R</td>
+								</tr>
+								<tr tal:repeat="questao questoes">
+									<td>${repeat.questao.number}</td>
+									<td class="resposta"></td>
+								</tr>
+							</table>
+						</div>
+							
+					</fieldset>	
+				</div>
+				<div class="row" id="sobre" hidden>
+					<font size="18" color="#9328B0">Scrumando</font>
+					<p><b>A maneira divertida de aprender Scrum.</b></p><br/>
+						<p><b><font size="3" color="#B773CB">Objetivo do jogo</font></b>: <font size="3" color="#4E4848">Você deve se tornar um Scrum Master, para isso você deve conseguir 150 pontos errando menos de 5 vezes.</font></p>
+						<br></br> 
+						<p><b><font size="3" color="#B773CB">Regras:</font></b> <b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Cada resposta correta soma-se 10 pontos a sua pontuação.</font></p>
+							<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Ao responder uma questão será informado se acertou ou errou a questão, mas não idicará qual a resposta correta em caso de erro.</font></p>
+							<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> A pontuação será somada altomaticamente e informada em um campo do lado direito acima das perguntas.</font></p>
+							<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Se chegar a 150 pontos parabéns! Você é um Scrum Master!</font></p>
+							<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Caso ocorra 5 erros o jogo termina. Que Pena! Você não é um Scrum Master ainda, mas não desanime, você pode tentar quantas vezes quiser.</font></p>
+					<br></br>	
+					<br></br>
+					<footer> 
+					<small> Este é um trabalho acadêmico desenvolvido pelo grupo Scrummando do curso de Engenharia de Software da Universidade Federal de Minas Gerais. 
+						 O objetivo do trabalho é desenvolver um jogo para ensinar conceitos de engenharia de software, neste caso o Scrum.</small>		
+					</footer> 
 
-					</div> <!-- Fim "row" -->
+				</div> <!-- Fim "row" -->
 					</div> <!-- Fim "row" -->
 					
 					

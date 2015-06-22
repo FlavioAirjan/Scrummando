@@ -25,12 +25,22 @@ input[type=radio]{
 	margin: 10px;
 }
 
-.btn{
+.changeQuestion{
 	margin: 5px;
 	background: #D8D3DA;
 }
-.btn:hover{
+.changeQuestion:hover{
 	background: #B7ABBC;
+}
+
+.submitAnswers,.submitAnswers:visited{
+  background-color: rgb(158, 68, 210);
+  color: white;
+}
+.submitAnswers:hover, .submitAnswers:active, .submitAnswers:focus{
+  background-color: rgb(158, 68, 210);
+  color: white;
+  font-weight: bold;
 }
 
 .font-normal {
