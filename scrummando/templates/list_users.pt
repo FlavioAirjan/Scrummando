@@ -25,14 +25,14 @@
 
 	<body>
 		<div class="container col-md-12">
-		<table style="margin:auto">
+		<table class="table" style="margin:auto">
 			<tr>
 				<th>Nome</th>
-				<th>Senha</th>
+				<th>Melhor Pontuação</th>
 			</tr>
-			<tr tal:repeat="user users">
-				<td>${user.username}</td>
-				<td>${user.password}</td>
+			<tr tal:repeat="name_score ranking">
+				<td>${name_score[0]}</td>
+				<td><span>${name_score[1]}</span></td>
 			</tr>
 		</table>
 
@@ -44,6 +44,5 @@
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="${request.static_url('scrummando:static/jquery.min.js')}"></script>
 		<script src="${request.static_url('scrummando:static/bootstrap.min.js')}"></script>
-		<script src="${request.static_url('scrummando:static/index.js')}"></script>
 	</body>
 </html>

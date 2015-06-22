@@ -1,26 +1,42 @@
 var USER_ANSWERS = {}
 var LETTERS = {1:"A",2:"B",3:"C",4:"D"}
 
+function saveGame(){
+	var q_id_answers = {}
+	$.each(USER_ANSWERS,function(key,value){
+		q_id_answers[value[0]] = value[1]
+	})
+	$.post("save",q_id_answers,function(data){
+		if(data["game_saved"]){
+			alert("Jogo Salvo com sucesso.")
+			location.reload()
+		}
+	})
+}
+
 function updateUserData(){
 	radio_respostas = $("input[type=radio]:checked")
 	radio_respostas.each(function(){
 		questao = parseInt(this.getAttribute("name").substr(1))
 		resposta = parseInt(this.getAttribute("value"))
-		USER_ANSWERS[questao] = resposta
+		questao_id = parseInt(this.getAttribute("data-q-id"))
+		USER_ANSWERS[questao] = [questao_id, resposta]
 	})
 
-	respostas_tabela = $(".resposta")
+	respostas_tabela = $(".resposta_tabela")
 	$.each(USER_ANSWERS,function(key, value){
-		$(respostas_tabela[key-1]).html(LETTERS[value])
+		$(respostas_tabela[key-1]).html(LETTERS[value[1]])
 	})
 	
 }
 
 function createUserData(){
-	max_q = $("#max_q").val()
-	for (var i = 1; i <= max_q; i++) {
-		USER_ANSWERS[i]	= ""
-	}
+	count = 1
+	$(".questao_id").each(function(){
+		USER_ANSWERS[count]	= [parseInt(this.value),0]
+		count++
+	})
+		
 }
 
 function showPreviousQuesiton(){
@@ -62,6 +78,7 @@ function showContent(Jcontent){
 	$("#home").hide()
 	$("#questoes_content").hide()
 	$("#sobre").hide()
+	$("#historico").hide()
 	Jcontent.show()
 }
 
@@ -155,23 +172,46 @@ $("#iniciarjogo_btn_falso").click(function(){
 })
 
 $("#hist_btn").click(function(){
+		showContent($("#historico"))
     	makeBoldMenu(this)
 })
 
 $("#salvar_btn").click(function(){
     	makeBoldMenu(this)
+    	saveGame()
 })
 $("#previous_btn").click(function(){
 	showPreviousQuesiton()
-    // var questao = document.getElementById("iniciar_jogo");
-    // questao.number="1";
-    // questao.style.display='block';
 })
 $("#next_btn").click(function(){
 	showNextQuesiton()
-    // var questao = document.getElementById("iniciar_jogo");
-    // questao.number="1";
-    // questao.style.display='block';
+})
+$("#submit_btn").click(function(){
+	//Check All answers answered
+	all_answered = true
+	$.each(USER_ANSWERS,function(key,value){
+		if(value[1] == 0){
+			all_answered = false
+		}
+	})
+	if(all_answered == false){
+		alert("Por favor, responda todas as questões.")
+		return
+	}
+
+	var q_id_answers = {}
+	$.each(USER_ANSWERS,function(key,value){
+		q_id_answers[value[0]] = value[1]
+	})
+	$.post("submit_answers",q_id_answers,function(data){
+		if(data["game_submitted"]){
+			alert("Analisando... confira sua pontuação na seção históricos.")
+			location.reload()
+		}
+	})
+})
+$("#load_msg").click(function(){
+	$(this).hide()
 })
 
 $(document).ready(function(){
@@ -179,4 +219,5 @@ $(document).ready(function(){
 	showContent($("#home"))
 	manageQuestoes()
 	createUserData()
+	updateUserData()
 })

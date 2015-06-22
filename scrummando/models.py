@@ -4,6 +4,8 @@ from sqlalchemy import (
     Integer,
     Text,
     ForeignKey,
+    DateTime,
+    Boolean,
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -15,7 +17,7 @@ from sqlalchemy.orm import (
 
 from sqlalchemy.orm import relationship
 from zope.sqlalchemy import ZopeTransactionExtension
-
+import datetime
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
@@ -65,7 +67,24 @@ class Questions(Base):
         create_alternatives(self,question_data)
         self.correct_alternative_pos = int(question_data[5])
 
-    
+class Answers(Base):
+    __tablename__ = "answers"
+    id = Column(Integer, primary_key=True)
+    game_id = Column(Integer, ForeignKey('games.id'))
+    question_id = Column(Integer)
+    answer_pos = Column(Integer)
+
+class Games(Base):
+    __tablename__ = 'games'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    score = Column(Integer)
+    answers = relationship(Answers)
+    date = Column(DateTime)
+    completed = Column(Boolean)
+    def __init__(self):
+        self.date = datetime.datetime.now()
+
 
 
 
