@@ -102,7 +102,7 @@
 								
 								<li id="iniciarjogo_btn_falso" tal:condition="not: logged"><a href="javascript:void(0)">Iniciar jogo</a></li>
 								
-								<li tal:condition="logged" id="hist_btn" ><a href="javascript:void(0)">Histórico</a></li>
+								<li tal:condition="logged" id="hist_btn" ><a href="/?historico=true">Histórico</a></li>
 								
 								<li tal:condition="logged"  id="salvar_btn" ><a href="javascript:void(0)">Salvar jogo</a></li>
 								
@@ -224,13 +224,15 @@
 							<tr>
 								<td>Data</td>
 								<td>Clique para carregar jogo</td>	
+								<td>Deletar</td>	
 							</tr>
 							<tr tal:condition="python: len(saved_games) == 0" >
-								<td colspan="2" style="text-align:center">Nenhum jogo salvo</td>
+								<td colspan="3" style="text-align:center">Nenhum jogo salvo</td>
 							</tr>
 							<tr class="warning" tal:repeat="game saved_games">
 								<td> Jogo salvo em <span tal:content="python: game.date.strftime('%d/%m/%y') + ' as ' + game.date.strftime('%H:%M')"></span></td>
-								<td> <a class="loadGame" data-g-id="${game.id}" href="/?g_id=${game.id}">Carregar jogo</a></td>
+								<td> <a class="loadGame" data-g-id="${game.id}" href="/?g_id=${game.id}&iniciar_jogo=true">Carregar jogo</a></td>
+								<td> <a class="deleteGame" data-g-id="${game.id}" href="javascript:void(0)">X</a></td>
 							</tr>
 						</table>
 					</div>

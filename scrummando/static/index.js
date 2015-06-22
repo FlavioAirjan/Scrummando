@@ -1,6 +1,29 @@
 var USER_ANSWERS = {}
 var LETTERS = {1:"A",2:"B",3:"C",4:"D"}
 
+function getUrlParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}   
+
+function checkPage(){
+	if (getUrlParameter("historico") == "true"){
+		$("#hist_btn").click();
+	}
+	if (getUrlParameter("iniciar_jogo") == "true"){
+		$("#iniciarjogo_btn").click();
+	}
+	
+}
 function saveGame(){
 	var q_id_answers = {}
 	$.each(USER_ANSWERS,function(key,value){
@@ -9,7 +32,6 @@ function saveGame(){
 	$.post("save",q_id_answers,function(data){
 		if(data["game_saved"]){
 			alert("Jogo Salvo com sucesso.")
-			location.reload()
 		}
 	})
 }
@@ -186,6 +208,17 @@ $("#previous_btn").click(function(){
 $("#next_btn").click(function(){
 	showNextQuesiton()
 })
+
+$(".deleteGame").click(function(){
+	g_id = parseInt(this.getAttribute("data-g-id"))
+	$.post("/delete_game",{"g_id":g_id},function(data){
+		if(data.deleted){
+			window.location.href = "/?historico=true"
+		}
+	})
+
+})
+
 $("#submit_btn").click(function(){
 	//Check All answers answered
 	all_answered = true
@@ -206,6 +239,7 @@ $("#submit_btn").click(function(){
 	$.post("submit_answers",q_id_answers,function(data){
 		if(data["game_submitted"]){
 			alert("Analisando... confira sua pontuação na seção históricos.")
+			window.location.href="/?historico=true"
 			location.reload()
 		}
 	})
@@ -214,10 +248,12 @@ $("#load_msg").click(function(){
 	$(this).hide()
 })
 
+
 $(document).ready(function(){
 	makeBoldMenu($("#home_btn")[0])
 	showContent($("#home"))
 	manageQuestoes()
 	createUserData()
 	updateUserData()
+	checkPage()
 })

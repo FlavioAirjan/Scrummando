@@ -171,4 +171,8 @@ input[type=radio]{
   color: #640E92;
   font-weight: bold;
 }
+.deleteGame{
+  color:red;
+  font-weight: bold;
+}
 

@@ -7,6 +7,7 @@ from sqlalchemy.exc import DBAPIError
 from pyramid.httpexceptions import HTTPFound, exception_response
 from sqlalchemy import desc
 
+
 from .models import (
 
     DBSession,
@@ -16,6 +17,7 @@ from .models import (
     Answers,
     )
 import transaction
+import random
 
 
 
@@ -34,6 +36,8 @@ def index(request):
             questoes.append(questao)
     else:
         questoes = DBSession.query(Questions).all()
+        questoes = random.sample(questoes,15)
+
 
     username = authenticated_userid(request)
     completed_games = []
@@ -75,6 +79,15 @@ def list_users(request):
 def list_questions(request):
     questoes = DBSession.query(Questions).all()
     return {'questoes': questoes}
+
+@view_config(name='delete_game', renderer='json')
+def delete_game(request):
+    game_id = request.POST["g_id"]
+    game = DBSession.query(Games).filter_by(id=game_id).first()
+    DBSession.delete(game)
+    transaction.commit()
+    return {"deleted":True}
+
 
 @view_config(name='login_user', renderer='json')
 def login_user(request):
