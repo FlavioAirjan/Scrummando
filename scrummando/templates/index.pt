@@ -188,11 +188,14 @@
 					<p><b>A maneira divertida de aprender Scrum.</b></p><br/>
 						<p><b><font size="3" color="#B773CB">Objetivo do jogo</font></b>: <font size="3" color="#4E4848">Você deve se tornar um Scrum Master, para isso você deve conseguir 150 pontos errando menos de 5 vezes.</font></p>
 						<br></br> 
-						<p><b><font size="3" color="#B773CB">Regras:</font></b> <b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Cada resposta correta soma-se 10 pontos a sua pontuação.</font></p>
-							<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Ao responder uma questão será informado se acertou ou errou a questão, mas não idicará qual a resposta correta em caso de erro.</font></p>
-							<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> A pontuação será somada altomaticamente e informada em um campo do lado direito acima das perguntas.</font></p>
-							<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Se chegar a 150 pontos parabéns! Você é um Scrum Master!</font></p>
-							<p><b><font size="3" color="#B773CB">-></font></b> <font size="3" color="#4E4848"> Caso ocorra 5 erros o jogo termina. Que Pena! Você não é um Scrum Master ainda, mas não desanime, você pode tentar quantas vezes quiser.</font></p>
+						<p><b><font size="3" color="#B773CB">Regras:</font></b></p>
+							<ul>
+							<li><font size="3" color="#4E4848"> Cada resposta correta soma-se 10 pontos a sua pontuação.</font></li>
+							<li><font size="3" color="#4E4848"> Ao responder uma questão será informado se acertou ou errou a questão, mas não idicará qual a resposta correta em caso de erro.</font></li>
+							<li><font size="3" color="#4E4848"> A pontuação será somada altomaticamente e informada em um campo do lado direito acima das perguntas.</font></li>
+							<li><font size="3" color="#4E4848"> Se chegar a 150 pontos parabéns! Você é um Scrum Master!</font></li>
+							<li><font size="3" color="#4E4848"> Caso ocorra 5 erros o jogo termina. Que Pena! Você não é um Scrum Master ainda, mas não desanime, você pode tentar quantas vezes quiser.</font></li>
+							</ul>
 					<br></br>	
 					<br></br>
 					<footer> 
